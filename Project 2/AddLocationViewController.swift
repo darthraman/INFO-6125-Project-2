@@ -15,7 +15,10 @@ class AddLocationViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func onDonePressed(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

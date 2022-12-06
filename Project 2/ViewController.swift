@@ -15,6 +15,8 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     private var locationManager: CLLocationManager!
     private var currentLocation: CLLocation?
     var weatherResponseGlobal : WeatherResponse? = nil
+    var latitude: String = ""
+    var longitude: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +87,8 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     
     // load weather api
     func loadWeather(location: CLLocation) {
-        
+        latitude = "\(location.coordinate.latitude)"
+        longitude = "\(location.coordinate.longitude)"
         let search: String? = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
         
         guard let search = search else {
@@ -345,18 +348,16 @@ extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print ("Button clicked \(control.tag)")
         performSegue(withIdentifier: "goToDetailScreen", sender: self)
-//        guard let coordinates = view.annotation?.coordinate
-//        else {
-//            return
-//        }
-//
-//
-//
-//        let launchOptions = [
-//            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
-//        ]
-//        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinates) )
-//        mapItem.openInMaps (launchOptions: launchOptions)
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "goToDetailScreen") {
+            let detailPage = segue.destination as! goToDetailViewController
+            detailPage.lat = (latitude) as String
+            detailPage.long = (longitude) as String
+            
+        }
     }
     
 }

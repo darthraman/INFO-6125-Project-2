@@ -137,7 +137,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     private func getURL (query: String) -> URL? {
         let baseUrl = "https://api.weatherapi.com/v1/"
         let currentEndpoint = "current.json"
-        let apiKey = "c67149dd82f9438e86f31545222111"
+        let apiKey = "b9852f05b70641a8b13220656220512"
         guard let url = "\(baseUrl)\(currentEndpoint)?key=\(apiKey)&q=\(query)"
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else{
             return nil
@@ -294,6 +294,7 @@ extension ViewController: MKMapViewDelegate {
             
             
             
+            
             // change colour of accessories
             
             view.tintColor = UIColor.systemRed
@@ -343,18 +344,19 @@ extension ViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print ("Button clicked \(control.tag)")
-        guard let coordinates = view.annotation?.coordinate
-        else {
-            return
-        }
-        
-        
-        
-        let launchOptions = [
-            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
-        ]
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinates) )
-        mapItem.openInMaps (launchOptions: launchOptions)
+        performSegue(withIdentifier: "goToDetailScreen", sender: self)
+//        guard let coordinates = view.annotation?.coordinate
+//        else {
+//            return
+//        }
+//
+//
+//
+//        let launchOptions = [
+//            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
+//        ]
+//        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinates) )
+//        mapItem.openInMaps (launchOptions: launchOptions)
     }
     
 }
